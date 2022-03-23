@@ -1,12 +1,171 @@
-.panel {
+.leftPanel {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
     background: rgb(100, 100, 100);
-    height: 100vh;
-    width: 15%;
-    
+    height: 100%;
+    width: 250px;
+    padding: 20px 10px 0px 10px;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto;
 }
 .search {
-
+    border-radius: 10px;
+    height: 25px;
+    width: 200px;
+    font-size: 16px;
+    border: none;
+    padding-left: 7px;
+}
+.search:focus {
+    outline: none;
 }
 .search:focus::-webkit-input-placeholder {
     color: transparent;
+}
+.header2 {
+    text-decoration: underline;
+    margin-bottom: 5px;
+}
+.playlists-holder {
+    align-self: flex-start;
+    width: 100%;
+    height: 150px;
+    overflow-y: auto;
+}
+.playlists-holder::-webkit-scrollbar {
+    width: 8px;
+}
+.playlists-holder::-webkit-scrollbar-track {
+    background:rgb(100, 100, 100);
+    
+}
+.playlists-holder::-webkit-scrollbar-thumb {
+    background: lightgrey;
+    border-radius: 100vw;
+}
+
+.playlists-holder > ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.playlistButton {
+    background: rgb(100, 100, 100);
+    border: none;
+    padding: 3px 0px;
+}
+.playlistButton:hover {
+    cursor: pointer;
+    color: limegreen;
+    padding-left: 5px;
+}
+.audioPlayer {
+    width: 100%;
+    min-height: 450px;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-end;
+    margin-top: auto;
+}
+.audioPlayer > img {
+    height: 120px;
+}
+.audioPlayer-trackInfo {
+    border-left: 3px solid rgb(80, 80, 80);
+    padding-left: 15px;
+    align-self: flex-start;
+}
+.audioPlayer-trackInfo > p {
+    margin-block: 5px;
+}
+.audioPlayer-songName {
+    font-weight: 800;
+    font-size: 1.15rem;
+}
+.audioPlayer-artistName {
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.audioPlayer-albumName {
+    color: lightgrey;
+}
+.audioPlayer-controls {
+    padding: 10px;
+}
+#songPosition {
+    width: 100%;
+    -webkit-appearance: none;
+    background: transparent;
+}
+#songPosition::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 10px;
+    background: lightgrey;
+    border-radius: 100vw;
+}
+#songPosition::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 10px;
+    height: 20px;
+    background:rgb(80, 80, 80);
+    margin-top: -6px;
+}
+#songPosition:focus {
+    outline: none;
+}
+#songRange:hover {
+    cursor: pointer;
+}
+.controlButtons {
+    display: flex;
+    justify-content: center;
+}
+.controlButtons > button {
+    font-size: 1.5rem;
+    background: transparent;
+    border: none;
+}
+.controlButtons > button:hover {
+    cursor: pointer;
+    color: darkgrey;
+}
+.controlButtons > button:active {
+    color: lightgrey;
+}
+#volume {
+    -webkit-appearance: none;
+    background: transparent;
+}
+#volume::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 10px;
+    background: lightgrey;
+    border-radius: 100vw;
+}
+#volume::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 10px;
+    height: 20px;
+    background:rgb(80, 80, 80);
+    margin-top: -6px;
+}
+#devices {
+    margin-top: 6px;
+    font-size: 1.5rem;
+    background:rgb(80, 80, 80);
+    border: none;
+    padding: 5px 10px;
+}
+#devices:focus {
+    outline: none;
 }
