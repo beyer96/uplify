@@ -1,0 +1,117 @@
+.mainPanel {
+    position:absolute;
+    right: 340px;
+    left: 270px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.header1 {
+    font-size: 2rem;
+}
+.searchContainer {
+    width: 80%;
+    height: calc(100% - 150px);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: rgba(100,100,100, 0.5);
+    border: 3px solid rgb(100,100,100);
+    border-radius: 30px;
+    padding: 15px;
+}
+.control-panel {
+    width: 60%;    
+    border-bottom: 2px solid lightgrey;
+    padding-bottom: 10px;
+}
+.chooseResults {
+    display: flex;
+    justify-content: center;
+}
+.chooseResults button {
+    margin: 5px 30px;
+    background: rgb(100,100,100);
+    border: none;
+    border-radius: 20px;
+}
+.chooseResults button:hover {
+    background: rgb(110,110,110);
+    color: lightgreen;
+    cursor: pointer;
+}
+.filters {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+.filters button {
+    margin: 5px;
+    background: rgb(150,150,150);
+    border: none;
+    border-radius: 20px;
+}
+.filters button:hover {
+    background: rgb(60,60,60);
+    color: lightgreen;
+    cursor: pointer;
+}
+.searchResults {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-y: auto;
+    scrollbar-gutter: stable;
+}
+.searchResults::-webkit-scrollbar {
+    width: 8px;
+}
+.searchResults::-webkit-scrollbar-track {
+    background:rgba(100, 100, 100, 0.5);
+}
+.searchResults::-webkit-scrollbar-thumb {
+    background: lightgrey;
+    border-radius: 100vw;
+}
+.results {
+    width: 100%;
+}
+.results ul {
+    list-style-type: none;
+    padding: 0;
+}
+.results li {
+    background: rgb(100,100,100);
+    margin-block: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.results li:hover {
+    background: rgb(90,90,90);
+}
+.results .trackInfo {
+    width: 40%;
+}
+.results .trackInfo .songName {
+    font-weight: 800;
+    font-size: 1.15rem;
+}
+.results .trackAlbum {
+    width: 35%;
+}
+.results .trackLength {
+    width: 15%;
+}
+.results .buttons {
+    margin-left: auto;
+}

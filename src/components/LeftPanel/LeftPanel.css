@@ -30,9 +30,10 @@
     margin-bottom: 5px;
 }
 .playlists-holder {
-    align-self: flex-start;
     width: 100%;
-    height: 150px;
+    min-height: 150px;
+    flex-basis: 150px;
+    flex-grow: 1;
     overflow-y: auto;
 }
 .playlists-holder::-webkit-scrollbar {
@@ -59,19 +60,16 @@
 }
 .playlistButton:hover {
     cursor: pointer;
-    color: limegreen;
+    color: lightgreen;
     padding-left: 5px;
 }
 .audioPlayer {
     width: 100%;
-    min-height: 450px;
+    height: 450px;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    align-self: flex-end;
-    margin-top: auto;
 }
 .audioPlayer > img {
     height: 120px;

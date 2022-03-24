@@ -1,0 +1,92 @@
+.rightPanel {
+    position: absolute;
+    width: 300px;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    background: rgb(100, 100, 100);
+    padding: 20px;
+}
+
+#playlistName {
+    background: rgb(100, 100, 100);
+    border: none;
+    font-size: 1.3rem;
+    color: lightgrey;
+    margin-top: 5px;
+    border-bottom: 2px solid rgb(80,80,80);
+}
+#playlistName:focus {
+    outline: none;
+}
+#playlistName::placeholder {
+    color: lightgrey;
+}
+#playlistName:focus::placeholder {
+    color: transparent;
+}
+.songList ul {
+    list-style-type: none;
+    padding-left: 0;
+    padding-right: 8px;
+    height: 50vh;
+    overflow: auto;
+}
+.songList ul::-webkit-scrollbar {
+    width: 8px;
+}
+.songList ul::-webkit-scrollbar-track {
+    background:rgb(100, 100, 100);
+}
+.songList ul::-webkit-scrollbar-thumb {
+    background: lightgrey;
+    border-radius: 100vw;
+}
+.songList li {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.songList li:hover {
+    background: rgb(90,90,90);
+}
+.songList .trackInfo {
+    flex-grow: 1;
+    margin-right: auto;
+    margin-block: 5px;
+}
+#play-btn {
+    background: transparent;
+    border: none;
+}
+#play-btn:hover {
+    color: lightgrey;
+    cursor: pointer;
+}
+#remove-btn {
+    background: transparent;
+    border: none;
+    font-weight: 900;
+}
+#remove-btn:hover {
+    color: lightgrey;
+    cursor: pointer;
+}
+#savePlaylist {
+    display: flex;
+    margin: 0 auto;
+    background: rgb(100, 100, 100);
+    border: none;
+    box-shadow: .5px .5px .5px black;
+    border-radius: 20px;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+#savePlaylist:hover {
+    background:rgb(109, 109, 109);
+    cursor: pointer;
+}
+#savePlaylist:active {
+    box-shadow: .5px .5px .5px lightgreen;
+}
