@@ -1,20 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import './LeftPanel.css';
 
-export const LeftPanel = () => {
-
-    const [playlists, setPlaylists] = useState(['Playlist1' , 'Playlist2', 'Playlist3','Playlist1' , 'Playlist2', 'Playlist3','Playlist1' , 'Playlist2', 'Playlist3','Playlist1' , 'Playlist2', 'Playlist3','Playlist1' , 'Playlist2', 'Playlist3']);
-    const [activeDevices, setActiveDevices] = useState(['Device1', 'Device2']);
-
+export const LeftPanel = (props) => {
+    
     return (
         <div className='leftPanel'>
             <input className='search' type='text' placeholder='Search tracks, artists,...' />
             <h2 className='header2'>My playlists</h2>
             <div className='playlists-holder'>
                 <ul>
-                    {playlists.map((playlist) => {
-                        return (<li><button className='playlistButton'>{playlist}</button></li>)
+                    {props.playlists.map((playlist, index) => {
+                        return (<li key={index}><button className='playlistButton'>{playlist.name}</button></li>)
                     })}
                 </ul>
             </div>
@@ -30,7 +27,7 @@ export const LeftPanel = () => {
                     <input type='range' id='songPosition' />
                     <br />
                     <div className='controlButtons'>
-                        <button>&laquo;</button>
+                        <button>&laquo;</button>        
                         <button>&#9658;</button>
                         <button>&raquo;</button>
                     </div>
@@ -41,9 +38,9 @@ export const LeftPanel = () => {
                 </div>
                 <br />
                 <label htmlFor='devices'>Toggle active devices</label>
-                <select id='devices'>
-                    {activeDevices.map((device) => {
-                        return (<option>{device}</option>)
+                <select id='devices' onChange={props.changeActiveDevice}>
+                    {props.activeDevices.map((device, i) => {
+                        return (<option key={i} value={device.id}>{device.name}</option>)
                     })}
                 </select>
             </div>
