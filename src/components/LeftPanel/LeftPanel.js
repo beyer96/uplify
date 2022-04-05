@@ -3,7 +3,21 @@ import React from 'react';
 import './LeftPanel.css';
 
 export const LeftPanel = (props) => {
-    
+    function skipToNextSong() {
+        props.skipNext();
+    }
+    function skipToPrevSong() {
+        props.skipPrev();
+    }
+    function togglePlayButton() {
+        props.togglePlay();
+    }
+    function setPlayerVolume(e) {
+        props.setVolume(Number(e.target.value));
+    }
+    function setTrackTime(e) {
+        props.setTrackTime(Number(e.target.value));
+    }
     return (
         <div className='leftPanel'>
             <input className='search' type='text' placeholder='Search tracks, artists,...' />
@@ -17,26 +31,25 @@ export const LeftPanel = (props) => {
             </div>
             <div className='audioPlayer'>
                 <h2 className='header2'>Audio player</h2>
-                <img src='https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/WSS_Sleeps_Society_cover.jpg/220px-WSS_Sleeps_Society_cover.jpg' alt='' />
+                <img src={props.currentTrack.album_img} alt='' />
                 <div className='audioPlayer-trackInfo'>
-                    <p className='audioPlayer-songName'>Nervous</p>
-                    <p className='audioPlayer-artistName'>While She Sleeps</p>
-                    <p className='audioPlayer-albumName'>Sleeps Society</p>
+                    <p className='audioPlayer-songName'>{props.currentTrack.name}</p>
+                    <p className='audioPlayer-artistName'>{props.currentTrack.artist}</p>
+                    <p className='audioPlayer-albumName'>{props.currentTrack.album}</p>
                 </div>
                 <div className='audioPlayer-controls'>
-                    <input type='range' id='songPosition' />
+                    <input type='range' id='songPosition' min='0' max={props.currentTrack.track_length} onMouseUp={setTrackTime}/>
                     <br />
                     <div className='controlButtons'>
-                        <button>&laquo;</button>        
-                        <button>&#9658;</button>
-                        <button>&raquo;</button>
+                        <button id="prev" onClick={skipToPrevSong}>&laquo;</button>        
+                        <button id="play" onClick={togglePlayButton}>{props.playerPaused ? 'PLAY' : 'PAUSE'}</button>
+                        <button id="next" onClick={skipToNextSong}>&raquo;</button>
                     </div>
                     <br />
                     <br />
                     <label htmlFor='vol'>Volume: </label>
-                    <input type='range' id='volume' />
+                    <input type='range' id='volume' min='0' max='100' step='1' onMouseUp={setPlayerVolume}/>
                 </div>
-                <br />
                 <label htmlFor='devices'>Toggle active devices</label>
                 <select id='devices' onChange={props.changeActiveDevice}>
                     {props.activeDevices.map((device, i) => {

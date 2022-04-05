@@ -85,6 +85,58 @@ const Spotify = {
             }))
         })
     },
+    getCurrentTrack() {
+        return fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+            headers: {'Authorization': `Bearer ${accessToken}`}
+        })
+        .then(response => response.json())
+        .then(track => {
+            return {
+                name: track.item.name,
+                artist: track.item.artists[0].name,
+                album: track.item.album.name,
+                album_img: track.item.album.images[0].url,
+                track_length: track.item.duration_ms,
+                track_uri: track.item.uri
+            }
+        });    
+    },
+    skipToPrev() {
+        return fetch('https://api.spotify.com/v1/me/player/previous', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'POST'
+        })
+    },
+    skipToNext() {
+        return fetch('https://api.spotify.com/v1/me/player/next', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'POST'
+        })
+    },
+    play() {
+        return fetch('https://api.spotify.com/v1/me/player/play', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT'
+        })
+    },
+    pause() {
+        return fetch('https://api.spotify.com/v1/me/player/pause', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT'
+        })
+    },
+    setPlayerVolume(volume) {
+        return fetch('https://api.spotify.com/v1/me/player/volume?volume_percent='+volume, {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT'
+        })
+    },
+    setTrackTime(position_ms) {
+        return fetch('https://api.spotify.com/v1/me/player/seek?position_ms='+position_ms, {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT'
+        })
+    },
     changeDevice(deviceID) {
         return fetch('https://api.spotify.com/v1/me/player', {
             headers: {'Authorization': `Bearer ${accessToken}`},
@@ -93,6 +145,15 @@ const Spotify = {
                 device_ids: [deviceID],
                 play: true
             })
+        })
+    },
+    updatePlayer() {
+        return fetch('https://api.spotify.com/v1/me/player', {
+            headers: {'Authorization': `Bearer ${accessToken}`}
+        })
+        .then(response => response.json())
+        .then(data => {
+            return data;
         })
     },
     search(query) {
