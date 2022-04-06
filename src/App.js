@@ -22,6 +22,7 @@ const App = () => {
     track_length: '',
     uri: ''
   });
+  const [searchResults, setSearchResults] = useState(null);
 
   async function handleLogin() {
     await Spotify.getToken(authCode);
@@ -81,6 +82,10 @@ const App = () => {
   function setVolume(volume) {
     Spotify.setPlayerVolume(volume);
   }
+  function setTrackTime(position) {
+    Spotify.setTrackTime(position);
+  }
+
   function updatePlayer() {
     Spotify.updatePlayer().then(data => {
       // fetch currect time of track
@@ -98,12 +103,21 @@ const App = () => {
       }
     })
   }
-  function setTrackTime(position) {
-    Spotify.setTrackTime(position);
+
+  function search(query) {
+    Spotify.search(query).then(results => {
+      setSearchResults(results);
+    })
   }
+
+  function playChosenSong(uri) {
+    Spotify.playChosenSong(uri);
+  }
+
   return (
     <div>  
       {gotToken ? <Content 
+        // leftPanel.js
         playlists={playlists} 
         activeDevices={activeDevices} 
         currentTrack={currentTrack} 
@@ -113,7 +127,12 @@ const App = () => {
         togglePlay={togglePlay}
         setVolume={setVolume}
         setTrackTime={setTrackTime}
-        changeActiveDevice={changeActiveDevice} /> : <Login handleLogin={handleLogin} />}
+        search={search}
+        changeActiveDevice={changeActiveDevice} 
+        // mainPanel.js
+        searchResults={searchResults}
+        playChosenSong={playChosenSong}
+        /> : <Login handleLogin={handleLogin} />}
     </div>
   );
 }

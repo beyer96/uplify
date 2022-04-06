@@ -110,9 +110,6 @@
 .results .trackAlbum {
     width: 35%;
 }
-.results .trackLength {
-    width: 15%;
-}
 .results .buttons {
     margin-left: auto;
 }
@@ -121,4 +118,18 @@
 }
 .results .buttons button:hover {
     color: lightgrey;
+}
+#add-btn {
+    background: transparent;
+    border: none;
+    font-weight: 900;
+}
+#add-btn:hover {
+    color: lightgrey;
+    cursor: pointer;
+}
+
+.active-filter {
+    color: lightgreen;
+    font-weight: 600;
 }

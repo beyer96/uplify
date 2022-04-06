@@ -18,9 +18,12 @@ export const LeftPanel = (props) => {
     function setTrackTime(e) {
         props.setTrackTime(Number(e.target.value));
     }
+    function searchTerm(e) {
+        props.search(e.target.value);
+    }
     return (
         <div className='leftPanel'>
-            <input className='search' type='text' placeholder='Search tracks, artists,...' />
+            <input className='search' type='text' placeholder='Search tracks, artists,...' onChange={searchTerm}/>
             <h2 className='header2'>My playlists</h2>
             <div className='playlists-holder'>
                 <ul>

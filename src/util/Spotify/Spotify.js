@@ -157,8 +157,48 @@ const Spotify = {
         })
     },
     search(query) {
-        return fetch('https://api.spotify.com/v1/search?type=album&include_external=audio', {
-            'Authorization': `Bearer ${accessToken}` 
+        return fetch('https://api.spotify.com/v1/search?q='+query+'&type=track,album,artist&limit=30', {
+            headers: {'Authorization': `Bearer ${accessToken}`}
+        })
+        .then(response => response.json())
+        .then(data => {
+            let tracks = data.tracks.items.map(track => {
+                return {
+                    name: track.name,
+                    artist: track.artists[0].name,
+                    album: track.album.name,
+                    album_img: track.album.images[0].url,
+                    track_length: track.duration_ms,
+                    uri: track.uri
+                }
+            })
+            let artists = data.artists.items.map(artist => {
+                return {
+                    name: artist.name,
+                    uri: artist.uri
+                }
+            })
+            let albums = data.albums.items.map(album => {
+                return {
+                    name: album.name,
+                    type: album.album_type,
+                    uri: album.uri
+                }
+            })
+            return {
+                tracks: tracks,
+                artists: artists,
+                albums: albums
+            }
+        })
+    },
+    playChosenSong(uri) {
+        return fetch('https://api.spotify.com/v1/me/player/play', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT',
+            body: JSON.stringify({
+                uris: [uri]
+            })
         })
     }
 }

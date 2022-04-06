@@ -8,7 +8,10 @@ export const Content = (props) => {
     
     return (
         <div>
-            <MainPanel />
+            <MainPanel 
+                searchResults={props.searchResults}
+                playChosenSong={props.playChosenSong}
+            />
             <LeftPanel  
                 playlists={props.playlists} 
                 activeDevices={props.activeDevices} 
@@ -19,7 +22,9 @@ export const Content = (props) => {
                 togglePlay={props.togglePlay}
                 setVolume={props.setVolume}
                 setTrackTime={props.setTrackTime}
-                changeActiveDevice={props.changeActiveDevice} />
+                search={props.search}
+                changeActiveDevice={props.changeActiveDevice} 
+            />
             <RightPanel />
         </div>
     )
