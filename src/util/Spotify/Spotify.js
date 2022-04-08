@@ -81,7 +81,8 @@ const Spotify = {
         .then(activeDevices => {
             return activeDevices.devices.map(device => ({
                 name: device.name,
-                id: device.id
+                id: device.id,
+                is_active: device.is_active
             }))
         })
     },
@@ -89,7 +90,12 @@ const Spotify = {
         return fetch('https://api.spotify.com/v1/me/player/currently-playing', {
             headers: {'Authorization': `Bearer ${accessToken}`}
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.status === 204) {
+                throw new Error('No song playing currently on any device');
+            }
+            return response.json()
+        })
         .then(track => {
             return {
                 name: track.item.name,
@@ -142,8 +148,7 @@ const Spotify = {
             headers: {'Authorization': `Bearer ${accessToken}`},
             method: 'PUT',
             body: JSON.stringify({
-                device_ids: [deviceID],
-                play: true
+                device_ids: [deviceID]
             })
         })
     },
@@ -151,12 +156,20 @@ const Spotify = {
         return fetch('https://api.spotify.com/v1/me/player', {
             headers: {'Authorization': `Bearer ${accessToken}`}
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.status === 204) {
+                return '204'
+            }
+            return response.json()
+        })
         .then(data => {
             return data;
         })
     },
     search(query) {
+        if(query.trim() === '') {
+            throw new Error('Nothing to search');
+        }
         return fetch('https://api.spotify.com/v1/search?q='+query+'&type=track,album,artist&limit=30', {
             headers: {'Authorization': `Bearer ${accessToken}`}
         })

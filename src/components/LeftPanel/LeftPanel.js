@@ -55,6 +55,7 @@ export const LeftPanel = (props) => {
                 </div>
                 <label htmlFor='devices'>Toggle active devices</label>
                 <select id='devices' onChange={props.changeActiveDevice}>
+                    {(props.activeDevices.find(device => device.is_active) === undefined) ? <option>Choose device</option> : null}
                     {props.activeDevices.map((device, i) => {
                         return (<option key={i} value={device.id}>{device.name}</option>)
                     })}

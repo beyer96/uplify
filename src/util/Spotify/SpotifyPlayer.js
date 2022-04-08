@@ -16,9 +16,10 @@ const SpotifyPlayer = {
                 getOAuthToken: cb => { cb(token); },
                 volume: 0.5
             });
+            
             // Ready
             player.addListener('ready', ({ device_id }) => {
-                // console.log('Ready with Device ID', device_id);
+                console.log('Ready with Device ID', device_id);
             });
 
             // Not Ready

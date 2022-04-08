@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Login } from './components/Login/Login'
 import { Content } from './components/Content/Content'
 import { authCode, accessToken, Spotify } from './util/Spotify/Spotify';
@@ -29,14 +29,15 @@ const App = () => {
     if(accessToken) {
       setGotToken(true);
       renderUserData();
-      setInterval(() => {
-        updatePlayer();
-      }, 1000)
+      
     }
   }
 
   function renderUserData() {
     SpotifyPlayer.initializePlayer();
+    setInterval(() => {
+      updatePlayer();
+    }, 1000)
     Spotify.getUserPlaylists().then(playlists => {
       setPlaylists(playlists);
     });
@@ -46,9 +47,13 @@ const App = () => {
     setTimeout(() => {
       Spotify.getActiveDevices().then(devices => {
         setActiveDevices(devices);
+        /* if(devices.length !== 0 && devices !== undefined && devices.find(device => device.is_active === true) === undefined) {
+          Spotify.changeDevice(devices[0].id)
+        } */
       });
     }, 1500);
   }
+
 
   function skipNext() {
     Spotify.skipToNext().then(() => {
@@ -74,7 +79,6 @@ const App = () => {
   }
   async function changeActiveDevice(e) {
     await Spotify.changeDevice(e.target.value);
-    setPlayerPaused(false);
     Spotify.getCurrentTrack().then(track => {
       setCurrentTrack(track);
     })
@@ -88,10 +92,17 @@ const App = () => {
 
   function updatePlayer() {
     Spotify.updatePlayer().then(data => {
+      Spotify.getActiveDevices().then(devices => {
+        setActiveDevices(devices);
+      });
+      if(data === '204') {
+        // No device to update right now
+        return;
+      } 
+      console.log(data)
       // fetch currect time of track
       document.getElementById('songPosition').value = data.progress_ms;
       // check if is playing different song -> update currentTrack state if so
-      if(currentTrack.uri !== data.item.uri) {
         setCurrentTrack({
           name: data.item.name,
           artist: data.item.artists[0].name,
@@ -100,7 +111,6 @@ const App = () => {
           track_length: data.item.duration_ms,
           uri: data.item.uri
         })
-      }
     })
   }
 

@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 
 import './MainPanel.css';
 
+import { SearchResults } from '../SearchResults/SearchResults';
+
 export const MainPanel = (props) => {
 
-const [typeOfSearch, setTypeOfSearch] = useState('Spotify') // 'Spotify' or 'Personal' - based on rendered buttons
-const [typeOfFilter, setTypeOfFilter] = useState('Tracks')  // 'Tracks' or 'Artists' or 'Albums' - based on rendered buttons (search filters)
+const [typeOfSearch, setTypeOfSearch] = useState(/* 'Spotify' */) // 'Spotify' or 'Personal' - based on rendered buttons
+const [typeOfFilter, setTypeOfFilter] = useState(/*'Tracks'*/)  // 'Tracks' or 'Artists' or 'Albums' - based on rendered buttons (search filters)
 const [results, setResults] = useState([]);
 
 function setSearchType(e) {
@@ -33,7 +35,7 @@ function setFilterType(e) {
     document.getElementById('artists').classList.remove('active-filter')
     e.target.classList.add('active-filter');
 }
-function setSearchResults(searchType, filterType) {
+/* function setSearchResults(searchType, filterType) {
     if(props.searchResults) {
         if(searchType === 'Spotify') {
             if(filterType === 'Tracks') {
@@ -52,8 +54,9 @@ function setSearchResults(searchType, filterType) {
 }
 useEffect(() => {
     setSearchResults(typeOfSearch, typeOfFilter);
+// eslint-disable-next-line react-hooks/exhaustive-deps
 }, [props.searchResults, typeOfFilter, typeOfSearch]);
-
+*/
 function playChosenSong(e) {
     let index = e.target.dataset.key;
     props.playChosenSong(results[index].uri);
@@ -78,23 +81,12 @@ function playChosenSong(e) {
                     <h2 className='header2'>{typeOfSearch} results - {typeOfFilter}</h2>
                     <div className='results'>
                         <ul>
-                            {
-                                results.map((result, i) => {
-                                    return (
-                                        <li key={i}>
-                                            <div className='trackInfo'>
-                                                <span className='songName'>{result.name}</span>
-                                                <br/>
-                                                <span>{result.artist}</span>
-                                            </div>
-                                            <div className='trackAlbum'>{result.album || result.type}</div>
-                                            <div className='buttons'>
-                                                <button id='play-btn' data-key={i} onClick={playChosenSong}>&#9658;</button>
-                                                <button id='add-btn'>+</button>
-                                            </div>
-                                        </li>
-                                    )
-                                })
+                            {   <SearchResults 
+                                    results={props.searchResults} 
+                                    typeOfSearch={typeOfSearch} 
+                                    typeOfFilter={typeOfFilter} 
+                                    playChosenSong={props.playChosenSong}
+                                />
                             }
                         </ul>
                     </div>

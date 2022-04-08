@@ -1,0 +1,41 @@
+.results li {
+    background-color: black;
+    color: white;
+    margin-block: 5px;
+    margin-right: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.results li:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+.results .trackInfo {
+    width: 40%;
+}
+.results .trackInfo .songName {
+    font-weight: 800;
+    font-size: 1.15rem;
+}
+.results .trackAlbum {
+    width: 35%;
+}
+.results .buttons {
+    margin-left: auto;
+}
+.results .buttons button {
+    color: white;
+}
+.results .buttons button:hover {
+    color: lightgrey;
+}
+#add-btn {
+    background: transparent;
+    border: none;
+    font-weight: 900;
+}
+#add-btn:hover {
+    color: lightgrey;
+    cursor: pointer;
+}
