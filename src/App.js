@@ -99,7 +99,6 @@ const App = () => {
         // No device to update right now
         return;
       } 
-      console.log(data)
       // fetch currect time of track
       document.getElementById('songPosition').value = data.progress_ms;
       // check if is playing different song -> update currentTrack state if so
@@ -124,6 +123,14 @@ const App = () => {
     Spotify.playChosenSong(uri);
   }
 
+  function playChosenAlbum(context_uri) {
+    Spotify.playChosenAlbum(context_uri);
+  }
+
+  function playChosenArtist(context_uri) {
+    Spotify.playChosenArtist(context_uri);
+  }    
+
   return (
     <div>  
       {gotToken ? <Content 
@@ -142,6 +149,8 @@ const App = () => {
         // mainPanel.js
         searchResults={searchResults}
         playChosenSong={playChosenSong}
+        playChosenAlbum={playChosenAlbum}
+        playChosenArtist={playChosenArtist}
         /> : <Login handleLogin={handleLogin} />}
     </div>
   );

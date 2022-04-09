@@ -188,14 +188,16 @@ const Spotify = {
             let artists = data.artists.items.map(artist => {
                 return {
                     name: artist.name,
-                    uri: artist.uri
+                    context_uri: artist.uri
                 }
             })
             let albums = data.albums.items.map(album => {
                 return {
                     name: album.name,
-                    type: album.album_type,
-                    uri: album.uri
+                    type: album.album_type,     // single or album
+                    artist: album.artists[0].name,
+                    context_uri: album.uri,
+                    id: album.id
                 }
             })
             return {
@@ -213,17 +215,27 @@ const Spotify = {
                 uris: [uri]
             })
         })
+    },
+    playChosenAlbum(context_uri) {
+        return fetch('https://api.spotify.com/v1/me/player/play', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT',
+            body: JSON.stringify({
+                context_uri: context_uri,
+                offset: {
+                    position: 0
+                }
+            })
+        })
+    },
+    playChosenArtist(context_uri) {
+        return fetch('https://api.spotify.com/v1/me/player/play', {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'PUT',
+            body: JSON.stringify({
+                context_uri: context_uri
+            })
+        })
     }
 }
-/*
-// helper function, get random string of any length needed
-function generateRandomString(number) {
-    let chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    let randomString = "";
-    for(let x = 0; x < number; x++) {
-        randomString += chars.charAt(Math.floor(Math.random() * number));
-    }
-    return randomString;
-}
-*/
 export {Spotify, accessToken, authCode};

@@ -11,15 +11,22 @@
 .results li:hover {
     background: rgba(0, 0, 0, 0.6);
 }
-.results .trackInfo {
+.results .trackInfo,
+.results .albumInfo {
     width: 40%;
 }
-.results .trackInfo .songName {
+.results .trackInfo .songName,
+.results .albumInfo .albumName {
     font-weight: 800;
     font-size: 1.15rem;
 }
 .results .trackAlbum {
     width: 35%;
+    text-align: center;
+}
+.results .albumType {
+    width: 40%;
+    text-align: center;
 }
 .results .buttons {
     margin-left: auto;

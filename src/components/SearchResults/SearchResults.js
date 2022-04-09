@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SingleResult } from "../SingleResult/SingleResult";
 
 
@@ -9,6 +9,10 @@ const style = {
 
 export const SearchResults = (props) => {
     
+    if(props.results === null) {
+        return 'No results...';
+    }
+
     if(props.typeOfSearch === "Spotify") {
         switch(props.typeOfFilter) {
             case 'Tracks':
@@ -21,6 +25,8 @@ export const SearchResults = (props) => {
                                         result={track} 
                                         type='track' 
                                         playChosenSong={props.playChosenSong}
+                                        playChosenAlbum={props.playChosenAlbum}
+                                        playChosenArtist={props.playChosenArtist}
                                         />
                         })
                         }
@@ -36,6 +42,8 @@ export const SearchResults = (props) => {
                                         result={album} 
                                         type='album' 
                                         playChosenSong={props.playChosenSong}
+                                        playChosenAlbum={props.playChosenAlbum}
+                                        playChosenArtist={props.playChosenArtist}
                                         />
                         })
                         }
@@ -51,6 +59,8 @@ export const SearchResults = (props) => {
                                         result={artist} 
                                         type='artist' 
                                         playChosenSong={props.playChosenSong}
+                                        playChosenAlbum={props.playChosenAlbum}
+                                        playChosenArtist={props.playChosenArtist}
                                         />
                         })
                         }

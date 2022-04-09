@@ -6,9 +6,8 @@ import { SearchResults } from '../SearchResults/SearchResults';
 
 export const MainPanel = (props) => {
 
-const [typeOfSearch, setTypeOfSearch] = useState(/* 'Spotify' */) // 'Spotify' or 'Personal' - based on rendered buttons
-const [typeOfFilter, setTypeOfFilter] = useState(/*'Tracks'*/)  // 'Tracks' or 'Artists' or 'Albums' - based on rendered buttons (search filters)
-const [results, setResults] = useState([]);
+const [typeOfSearch, setTypeOfSearch] = useState('Spotify') // 'Spotify' or 'Personal' - based on rendered buttons
+const [typeOfFilter, setTypeOfFilter] = useState('Tracks')  // 'Tracks' or 'Artists' or 'Albums' - based on rendered buttons (search filters)
 
 function setSearchType(e) {
     setTypeOfSearch(e.target.dataset.searchtype);
@@ -35,32 +34,6 @@ function setFilterType(e) {
     document.getElementById('artists').classList.remove('active-filter')
     e.target.classList.add('active-filter');
 }
-/* function setSearchResults(searchType, filterType) {
-    if(props.searchResults) {
-        if(searchType === 'Spotify') {
-            if(filterType === 'Tracks') {
-                setResults(props.searchResults.tracks);
-            }
-            else if(filterType === 'Albums') {
-                setResults(props.searchResults.albums);
-            }
-            else if(filterType === 'Artists') {
-                setResults(props.searchResults.artists);
-            }
-        } else {
-            setResults([]);
-        }
-    }
-}
-useEffect(() => {
-    setSearchResults(typeOfSearch, typeOfFilter);
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, [props.searchResults, typeOfFilter, typeOfSearch]);
-*/
-function playChosenSong(e) {
-    let index = e.target.dataset.key;
-    props.playChosenSong(results[index].uri);
-}
 
     return (
         <div className='mainPanel'>
@@ -68,11 +41,11 @@ function playChosenSong(e) {
             <div className='searchContainer'>
                 <div className='control-panel'>
                     <div className='chooseResults'>
-                        <button id='spotify-results' data-searchtype='Spotify' onClick={setSearchType}>Spotify results</button>
+                        <button id='spotify-results' className='active-filter' data-searchtype='Spotify' onClick={setSearchType}>Spotify results</button>
                         <button id='personal-results' data-searchtype='Personal' onClick={setSearchType}>Personal results</button>
                     </div>
                     <div className='filters'>
-                        <button id='tracks' className='filter' data-filter='Tracks' onClick={setFilterType}>Tracks</button>
+                        <button id='tracks' className='filter active-filter' data-filter='Tracks' onClick={setFilterType}>Tracks</button>
                         <button id='albums' className='filter' data-filter='Albums' onClick={setFilterType}>Albums</button>
                         <button id='artists' className='filter' data-filter='Artists' onClick={setFilterType}>Artists</button>
                     </div>
@@ -86,6 +59,8 @@ function playChosenSong(e) {
                                     typeOfSearch={typeOfSearch} 
                                     typeOfFilter={typeOfFilter} 
                                     playChosenSong={props.playChosenSong}
+                                    playChosenAlbum={props.playChosenAlbum}
+                                    playChosenArtist={props.playChosenArtist}
                                 />
                             }
                         </ul>

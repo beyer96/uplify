@@ -11,6 +11,8 @@ export const Content = (props) => {
             <MainPanel 
                 searchResults={props.searchResults}
                 playChosenSong={props.playChosenSong}
+                playChosenAlbum={props.playChosenAlbum}
+                playChosenArtist={props.playChosenArtist}
             />
             <LeftPanel  
                 playlists={props.playlists} 
