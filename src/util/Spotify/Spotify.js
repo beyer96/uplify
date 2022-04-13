@@ -1,6 +1,6 @@
 var authCode;
 var accessToken;
-const redirect = 'http://localhost:3000/';
+const redirect = 'http://uplify.netlify.app';
 const clientID = 'e844090178ad411d93f568bd9d8038d0';
 const clientSecret = 'e3e44d2521be4f84a88ad7305814f7e4';
 
