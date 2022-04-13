@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Login } from './components/Login/Login'
 import { Content } from './components/Content/Content'
 import { authCode, accessToken, Spotify } from './util/Spotify/Spotify';
@@ -23,13 +23,14 @@ const App = () => {
     uri: ''
   });
   const [searchResults, setSearchResults] = useState(null);
+  const [playlistToCreate, setPlaylistToCreate] = useState([]);
+  const [playlistToDisplay, setPlaylistToDisplay] = useState(null);
 
   async function handleLogin() {
     await Spotify.getToken(authCode);
     if(accessToken) {
       setGotToken(true);
       renderUserData();
-      
     }
   }
 
@@ -37,6 +38,9 @@ const App = () => {
     SpotifyPlayer.initializePlayer();
     setInterval(() => {
       updatePlayer();
+      Spotify.getUserPlaylists().then(playlists => {
+        setPlaylists(playlists);
+      });
     }, 1000)
     Spotify.getUserPlaylists().then(playlists => {
       setPlaylists(playlists);
@@ -47,9 +51,6 @@ const App = () => {
     setTimeout(() => {
       Spotify.getActiveDevices().then(devices => {
         setActiveDevices(devices);
-        /* if(devices.length !== 0 && devices !== undefined && devices.find(device => device.is_active === true) === undefined) {
-          Spotify.changeDevice(devices[0].id)
-        } */
       });
     }, 1500);
   }
@@ -110,6 +111,7 @@ const App = () => {
           track_length: data.item.duration_ms,
           uri: data.item.uri
         })
+        setPlayerPaused(!data.is_playing)
     })
   }
 
@@ -129,7 +131,35 @@ const App = () => {
 
   function playChosenArtist(context_uri) {
     Spotify.playChosenArtist(context_uri);
-  }    
+  }   
+  
+  function addToPlaylist(song) {
+    setPlaylistToCreate(prev => [...prev, song]);
+  }
+
+  function createPlaylist(name, tracks_uris) {
+    Spotify.createPlaylist(name, tracks_uris);
+    setPlaylistToCreate([])
+  }
+
+  function getChosenPlaylist(playlist_id) {
+    Spotify.getChosenPlaylist(playlist_id).then(playlist => {
+      setPlaylistToDisplay(playlist);
+    })
+  }
+
+  function deleteSongInPlaylist(playlist_id, track_uri, index) {
+    Spotify.deleteSongInPlaylist(playlist_id, track_uri);   // deletes track in Spotify
+    Spotify.getChosenPlaylist(playlist_id).then(playlist => {     // deletes track in state to pass correct props
+      playlist.tracks.splice(index, 1);
+      setPlaylistToDisplay(playlist);
+    })
+  }
+
+  function deleteSongInPlaylistToCreate(index) {
+    playlistToCreate.splice(index, 1)
+    setPlaylistToCreate(playlistToCreate);
+  }
 
   return (
     <div>  
@@ -145,12 +175,20 @@ const App = () => {
         setVolume={setVolume}
         setTrackTime={setTrackTime}
         search={search}
-        changeActiveDevice={changeActiveDevice} 
+        changeActiveDevice={changeActiveDevice}
+        getChosenPlaylist={getChosenPlaylist}
         // mainPanel.js
         searchResults={searchResults}
-        playChosenSong={playChosenSong}
+        playChosenSong={playChosenSong} // also for rightPanel.js
         playChosenAlbum={playChosenAlbum}
         playChosenArtist={playChosenArtist}
+        addToPlaylist={addToPlaylist}
+        // rightPanel.js
+        playlistToCreate={playlistToCreate}
+        playlistToDisplay={playlistToDisplay}
+        createPlaylist={createPlaylist}
+        deleteSongInPlaylist={deleteSongInPlaylist}
+        deleteSongInPlaylistToCreate={deleteSongInPlaylistToCreate}
         /> : <Login handleLogin={handleLogin} />}
     </div>
   );

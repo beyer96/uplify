@@ -42,7 +42,7 @@ function setFilterType(e) {
                 <div className='control-panel'>
                     <div className='chooseResults'>
                         <button id='spotify-results' className='active-filter' data-searchtype='Spotify' onClick={setSearchType}>Spotify results</button>
-                        <button id='personal-results' data-searchtype='Personal' onClick={setSearchType}>Personal results</button>
+                        {/* <button id='personal-results' data-searchtype='Personal'  onClick={setSearchType} >Personal results</button> */}
                     </div>
                     <div className='filters'>
                         <button id='tracks' className='filter active-filter' data-filter='Tracks' onClick={setFilterType}>Tracks</button>
@@ -61,6 +61,7 @@ function setFilterType(e) {
                                     playChosenSong={props.playChosenSong}
                                     playChosenAlbum={props.playChosenAlbum}
                                     playChosenArtist={props.playChosenArtist}
+                                    addToPlaylist={props.addToPlaylist}
                                 />
                             }
                         </ul>

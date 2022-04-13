@@ -21,6 +21,10 @@ export const LeftPanel = (props) => {
     function searchTerm(e) {
         props.search(e.target.value);
     }
+    function getChosenPlaylist(e) {
+        let playlist_id = e.target.dataset.playlist_id;
+        props.getChosenPlaylist(playlist_id);
+    }
     return (
         <div className='leftPanel'>
             <input className='search' type='text' placeholder='Search tracks, artists,...' onChange={searchTerm}/>
@@ -28,7 +32,7 @@ export const LeftPanel = (props) => {
             <div className='playlists-holder'>
                 <ul>
                     {props.playlists.map((playlist, index) => {
-                        return (<li key={index}><button className='playlistButton'>{playlist.name}</button></li>)
+                        return (<li key={index}><button className='playlistButton' data-playlist_id={playlist.id} onClick={getChosenPlaylist}>{playlist.name}</button></li>)
                     })}
                 </ul>
             </div>
@@ -57,6 +61,9 @@ export const LeftPanel = (props) => {
                 <select id='devices' onChange={props.changeActiveDevice}>
                     {(props.activeDevices.find(device => device.is_active) === undefined) ? <option>Choose device</option> : null}
                     {props.activeDevices.map((device, i) => {
+                        if(device.is_active) {
+                            return (<option key={i} value={device.id} selected>{device.name}</option>)
+                        }
                         return (<option key={i} value={device.id}>{device.name}</option>)
                     })}
                 </select>

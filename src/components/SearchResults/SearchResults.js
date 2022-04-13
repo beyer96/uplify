@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SingleResult } from "../SingleResult/SingleResult";
 
 
@@ -27,6 +27,7 @@ export const SearchResults = (props) => {
                                         playChosenSong={props.playChosenSong}
                                         playChosenAlbum={props.playChosenAlbum}
                                         playChosenArtist={props.playChosenArtist}
+                                        addToPlaylist={props.addToPlaylist}
                                         />
                         })
                         }
@@ -44,6 +45,7 @@ export const SearchResults = (props) => {
                                         playChosenSong={props.playChosenSong}
                                         playChosenAlbum={props.playChosenAlbum}
                                         playChosenArtist={props.playChosenArtist}
+                                        addToPlaylist={props.addToPlaylist}
                                         />
                         })
                         }
@@ -61,6 +63,7 @@ export const SearchResults = (props) => {
                                         playChosenSong={props.playChosenSong}
                                         playChosenAlbum={props.playChosenAlbum}
                                         playChosenArtist={props.playChosenArtist}
+                                        addToPlaylist={props.addToPlaylist}
                                         />
                         })
                         }

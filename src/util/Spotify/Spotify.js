@@ -46,7 +46,7 @@ const Spotify = {
             accessToken = data.access_token;
             setTimeout((accessToken) => {
                 accessToken = undefined;
-            }, data.expires_in * 1000);
+            }, data.expires_in * 10000);
         });
     },
     returnUser() {
@@ -68,7 +68,8 @@ const Spotify = {
         .then(jsonResponse1 => {
             return jsonResponse1.items.map(playlist => ({
                 name: playlist.name,
-                uri: playlist.uri
+                uri: playlist.uri,
+                id: playlist.id
             }))
         })
         
@@ -234,6 +235,56 @@ const Spotify = {
             method: 'PUT',
             body: JSON.stringify({
                 context_uri: context_uri
+            })
+        })
+    },
+    createPlaylist(playlistName, track_uris) {
+        return this.returnUser()
+        .then(response => response.json())
+        .then(jsonResponse => {
+            var user_id = jsonResponse.id;
+            // create new playlist in Spotify
+            fetch(`https://api.spotify.com/v1/users/${user_id}/playlists`, {
+                headers: {'Authorization': `Bearer ${accessToken}`},
+                method: 'POST',
+                body: JSON.stringify({
+                    name: playlistName
+                })
+            })
+            .then(playlistResponse => playlistResponse.json())
+            .then(data => {
+                let playlist_id = data.id;
+                fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+                    headers: {'Authorization': `Bearer ${accessToken}`},
+                    method: 'POST',
+                    body: JSON.stringify({
+                        uris: track_uris
+                    })
+                })
+            })
+        })
+    },
+    getChosenPlaylist(playlist_id) {
+        return fetch(`https://api.spotify.com/v1/playlists/${playlist_id}`, {
+            headers: {'Authorization': `Bearer ${accessToken}`}
+        })
+        .then(response => response.json())
+        .then(playlist => {
+            return {
+                name: playlist.name,
+                tracks: playlist.tracks.items,
+                id: playlist.id
+            }
+        })
+    },
+    deleteSongInPlaylist(playlist_id, track_uri) {
+        return fetch(`https://api.spotify.com/v1/playlists/${playlist_id}/tracks`, {
+            headers: {'Authorization': `Bearer ${accessToken}`},
+            method: 'DELETE',
+            body: JSON.stringify({
+                tracks: [{
+                    uri: track_uri
+                }]
             })
         })
     }

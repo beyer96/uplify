@@ -44,6 +44,9 @@
     color: lightgreen;
     cursor: pointer;
 }
+#personal-results:hover {
+    color: red;
+}
 .filters {
     width: 60%;
     margin: 0 auto;

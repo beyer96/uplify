@@ -18,6 +18,10 @@ export const SingleResult = (props) => {
         props.playChosenArtist(context_uri);
     }
 
+    function addToPlaylist() {
+        props.addToPlaylist(props.result);
+    }
+
     switch(props.type) {
         case 'track':
             return (
@@ -30,7 +34,7 @@ export const SingleResult = (props) => {
                 <div className='trackAlbum'>{props.result.album}</div>
                 <div className='buttons'>
                     <button id='play-btn' data-uri={props.result.uri} onClick={playChosenSong}>&#9658;</button>
-                    <button id='add-btn'>+</button>
+                    <button id='add-btn' onClick={addToPlaylist} >+</button>
                 </div>
             </li>
             );

@@ -13,6 +13,7 @@ export const Content = (props) => {
                 playChosenSong={props.playChosenSong}
                 playChosenAlbum={props.playChosenAlbum}
                 playChosenArtist={props.playChosenArtist}
+                addToPlaylist={props.addToPlaylist}
             />
             <LeftPanel  
                 playlists={props.playlists} 
@@ -26,8 +27,16 @@ export const Content = (props) => {
                 setTrackTime={props.setTrackTime}
                 search={props.search}
                 changeActiveDevice={props.changeActiveDevice} 
+                getChosenPlaylist={props.getChosenPlaylist}
             />
-            <RightPanel />
+            <RightPanel 
+                playlistToCreate={props.playlistToCreate}
+                playlistToDisplay={props.playlistToDisplay}
+                playChosenSong={props.playChosenSong}
+                createPlaylist={props.createPlaylist}
+                deleteSongInPlaylist={props.deleteSongInPlaylist}
+                deleteSongInPlaylistToCreate={props.deleteSongInPlaylistToCreate}
+            />
         </div>
     )
 }
