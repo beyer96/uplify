@@ -4,7 +4,7 @@ App based on Spotify API and Spotify Web-player SDK enables few functions, mainl
 
 ## Usage
 
-Just open the app in your browser via [this link](). You will be redirected to the Spotify login and afterwards to consent needed authorization scope for the app. Next, you should be redirected back to the app. When you open it, you see the app interface, which could is split in three parts: 
+Just open the app in your browser via [this link](https://uplify.netlify.app). You will be redirected to the Spotify login and afterwards to consent needed authorization scope for the app. Next, you should be redirected back to the app. When you open it, you see the app interface, which could is split in three parts: 
 
 1) **Left panel**: 
 This is where you find search bar, your own Spotify playlists, and also Spotify Web-player, where you can toggle choosing currently active device (either Up-lify app, your desktop/mobile Spotify app, etc...). 
